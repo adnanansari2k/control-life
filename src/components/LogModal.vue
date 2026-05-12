@@ -401,10 +401,16 @@ async function submit() {
 
   const ts      = new Date(`${form.value.date}T${form.value.time}`).getTime()
   const payload = {
-    ...form.value,
-    timestamp: ts,
-    timeSlot:  getTimeSlot(),
-  }
+  ...form.value,
+  timestamp: ts,
+  timeSlot: (() => {
+    const h = Number(form.value.time.split(':')[0])
+    if (h >= 5  && h < 12) return 'morning'
+    if (h >= 12 && h < 17) return 'afternoon'
+    if (h >= 17 && h < 21) return 'evening'
+    return 'night'
+  })()
+                              }
 
   let savedId = props.editId
   try {
