@@ -64,7 +64,11 @@ export function userCol(c)    { return collection(db, 'users', uid(), c) }
 export function userDocRef(c, id) { return doc(db, 'users', uid(), c, id) }
 
 export function getTimeSlot() {
-  const h = new Date().getHours()
+  const h = new Date(1778566260000).toLocaleString("en-IN", {
+  timeZone: "Asia/Kolkata",
+  hour: "2-digit",
+  hour12: false
+});
   if (h >= 5  && h < 12) return 'morning'
   if (h >= 12 && h < 17) return 'afternoon'
   if (h >= 17 && h < 21) return 'evening'
